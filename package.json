@@ -1,0 +1,47 @@
+{
+  "name": "react-outside-kit",
+  "version": "0.1.0",
+  "description": "A lightweight React library for outside interactions and UI dismissal.",
+  "keywords": [
+    "react",
+    "hooks",
+    "typescript",
+    "outside-click",
+    "dismiss",
+    "hover",
+    "pointer",
+    "escape-key",
+    "interactions"
+  ],
+  "license": "MIT",
+  "author": "Ashraf Damous",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashraf-med/react-outside-kit.git"
+  },
+
+  "homepage": "",
+
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "scripts": {
+    "build": "vite build"
+  }
+}
