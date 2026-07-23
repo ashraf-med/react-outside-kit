@@ -34,6 +34,11 @@ export function useClickOutside({
             const targetRefs = normalizeRefs(ref)
             const ignoreRefs = normalizeRefs(ignore)
 
+            // make sure targetRefs have atleast one non null ref 
+            if (targetRefs.every(ref => ref.current == null)) {
+                return;
+            }
+
             const isTargetHit = targetRefs.some((ref) => containsTarget(ref, event))
             const isIgnoretHit = ignoreRefs.some((ignore) => containsTarget(ignore, event))
 
@@ -46,7 +51,6 @@ export function useClickOutside({
 
         return () => {
 
-            console.log("removing listener")
             document.removeEventListener(event, handleClickOutside, capture);
         }
 
