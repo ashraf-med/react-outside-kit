@@ -9,7 +9,7 @@ type UseEscapeKeyOptions = {
 export function useEscapeKey({
     onEscape,
     enabled = true,
-    }: UseEscapeKeyOptions ): void {
+}: UseEscapeKeyOptions): void {
 
     const onEscapeRef = useLatest(onEscape)
 
@@ -19,7 +19,6 @@ export function useEscapeKey({
 
         const handleEscPress = (event: KeyboardEvent) => {
             if (event.key !== 'Escape') return;
-            console.log('esca')
             onEscapeRef.current(event)
         }
 
