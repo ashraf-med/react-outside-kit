@@ -24,6 +24,8 @@ export function useClickOutside({
 }: UseClickOutsideOptions): void {
 
     const onOutsideRef = useLatest(onOutside)
+    const refsRef = useLatest(ref)
+    const ignoreRef = useLatest(ignore)
 
     useEffect(() => {
 
@@ -31,8 +33,8 @@ export function useClickOutside({
 
         const handleClickOutside = (event: MouseEvent | TouchEvent) => {
 
-            const targetRefs = normalizeRefs(ref)
-            const ignoreRefs = normalizeRefs(ignore)
+            const targetRefs = normalizeRefs(refsRef.current)
+            const ignoreRefs = normalizeRefs(ignoreRef.current)
 
             // make sure targetRefs have atleast one non null ref 
             if (targetRefs.every(ref => ref.current == null)) {
@@ -54,5 +56,5 @@ export function useClickOutside({
             document.removeEventListener(event, handleClickOutside, capture);
         }
 
-    }, [ignore, enabled, capture])
+    }, [event, enabled, capture])
 }
