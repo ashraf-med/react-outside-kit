@@ -4,10 +4,9 @@ import { useLatest } from '../core/useLatest';
 import { normalizeRefs } from '../core/normalizeRefs';
 
 type UsePointerLeaveOptions = {
-  ref:
-  | RefObject<HTMLElement | null>
-  |RefObject<HTMLElement | null>[];
+  ref: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[];
   onLeave: () => void;
+  ignore?: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[];
   delay?: number;
   enabled?: boolean;
 };
@@ -15,6 +14,7 @@ type UsePointerLeaveOptions = {
 export function usePointerLeave({
   ref,
   onLeave,
+  ignore,
   delay = 0,
   enabled = true,
 }: UsePointerLeaveOptions): void {
@@ -24,6 +24,7 @@ export function usePointerLeave({
 
   const onLeaveRef = useLatest(onLeave)
   const refsRef = useLatest(ref)
+  const ignoresRef = useLatest(ignore)
 
   useEffect(() => {
 
@@ -39,10 +40,12 @@ export function usePointerLeave({
     const handlePointerMove = (event: PointerEvent) => {
 
       const refs = normalizeRefs(refsRef.current)
+      const ignores = normalizeRefs(ignoresRef.current)
 
-      const isInside = refs.some((ref) => containsTarget(ref, event));
+      const isInsideRef = refs.some((ref) => containsTarget(ref, event));
+      const isInsideIgnore = ignores.some((ignore) => containsTarget(ignore, event));
 
-      if (isInside) {
+      if (isInsideRef || isInsideIgnore) {
         wasInsideRef.current = true;
         clearPendingTimeout();
         return;
