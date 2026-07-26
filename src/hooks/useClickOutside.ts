@@ -6,7 +6,7 @@ import { normalizeRefs } from '../core/normalizeRefs';
 
 type UseClickOutsideOptions = {
     ref: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[],
-    onOutside: (event: MouseEvent | TouchEvent) => void,
+    onOutside: (event: MouseEvent | TouchEvent | PointerEvent) => void,
     ignore?: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[],
     capture?: boolean,
     event?: "pointerdown" | "mousedown" | "touchstart" | "click"
@@ -31,7 +31,7 @@ export function useClickOutside({
 
         if (!enabled) return
 
-        const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+        const handleClickOutside = (event: MouseEvent | TouchEvent | PointerEvent) => {
 
             const targetRefs = normalizeRefs(refsRef.current)
             const ignoreRefs = normalizeRefs(ignoreRef.current)
