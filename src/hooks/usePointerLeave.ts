@@ -5,7 +5,7 @@ import { normalizeRefs } from '../core/normalizeRefs';
 
 type UsePointerLeaveOptions = {
   ref: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[];
-  onLeave: () => void;
+  onLeave: (event :PointerEvent) => void;
   ignore?: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[];
   delay?: number;
   enabled?: boolean;
@@ -63,7 +63,7 @@ export function usePointerLeave({
 
       timeoutRef.current = window.setTimeout(() => {
         timeoutRef.current = null;
-        onLeaveRef.current();
+        onLeaveRef.current(event);
       }, delay);
     };
 
