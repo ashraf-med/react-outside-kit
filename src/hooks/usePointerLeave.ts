@@ -5,7 +5,7 @@ import { normalizeRefs } from '../core/normalizeRefs';
 
 type UsePointerLeaveOptions = {
   ref: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[];
-  onLeave: (event :PointerEvent) => void;
+  onLeave: (event: PointerEvent) => void;
   ignore?: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[];
   delay?: number;
   enabled?: boolean;
@@ -19,12 +19,12 @@ export function usePointerLeave({
   enabled = true,
 }: UsePointerLeaveOptions): void {
 
-  const timeoutRef = useRef<number | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wasInsideRef = useRef(false);
 
   const onLeaveRef = useLatest(onLeave)
-  const refsRef = useLatest(ref)
-  const ignoresRef = useLatest(ignore)
+  const refsRef = useLatest(normalizeRefs(ref))
+  const ignoresRef = useLatest(normalizeRefs(ignore))
 
   useEffect(() => {
 
@@ -39,8 +39,8 @@ export function usePointerLeave({
 
     const handlePointerMove = (event: PointerEvent) => {
 
-      const refs = normalizeRefs(refsRef.current)
-      const ignores = normalizeRefs(ignoresRef.current)
+      const refs = refsRef.current
+      const ignores = ignoresRef.current
 
       const isInsideRef = refs.some((ref) => containsTarget(ref, event));
       const isInsideIgnore = ignores.some((ignore) => containsTarget(ignore, event));
