@@ -6,7 +6,7 @@ Handle common patterns like outside clicks, pointer boundaries, hover states, an
 
 ### Features
 
-- ⚡ Lightweight ~3kb 
+- ⚡ Lightweight ~5kb 
 - 🌳 Tree-shakeable
 - 📦 TypeScript support
 - ⚛️ React 18 & 19
